@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
-// const jwt = require("jsonwebtoken");
-// const keysecret = process.env.KEY
+const jwt = require("jsonwebtoken");
+const keysecret = process.env.KEY
 
 const userSchema = new mongoose.Schema({
     fname: {
@@ -58,31 +58,31 @@ userSchema.pre("save", async function (next) {
     next();
 });
 
-// generting token
-// userSchema.methods.generatAuthtoken = async function(){
-//     try {
-//         let token = jwt.sign({ _id:this._id},keysecret,{
-//             expiresIn:"1d"
-//         });
-//         this.tokens = this.tokens.concat({token:token});
-//         await this.save();
-//         return token;
+// generting token using instance method
+userSchema.methods.generatAuthtoken = async function(){
+    try {
+        let token = jwt.sign({ _id:this._id},keysecret,{
+            // expiresIn:"1d"
+        });
+        this.tokens = this.tokens.concat({token:token});
+        await this.save();
+        return token;
 
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
+    } catch (error) {
+        console.log(error);
+    }
+}
 
-// addto cart data
-// userSchema.methods.addcartdata = async function(cart){
-//     try {
-//         this.carts = this.carts.concat(cart);
-//         await this.save();
-//         return this.carts;
-//     } catch (error) {
-//         console.log(error + "bhai cart add time aai error");
-//     }
-// }
+// add to cart data
+userSchema.methods.addcartdata = async function(cart){
+    try {
+        this.carts = this.carts.concat(cart);
+        await this.save();
+        return this.carts;
+    } catch (error) {
+        console.log(error + "bhai cart add time aai error");
+    }
+}
 
 
 
