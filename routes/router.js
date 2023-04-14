@@ -171,4 +171,41 @@ router.get("/validuser", authenicate, async (req, res) => {
         console.log(error + "error for valid user");
     }
 });
+// remove iteam from the cart
+
+router.delete("/remove/:id", authenicate, async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        req.rootUser.carts = req.rootUser.carts.filter((curel) => {
+            return curel.id != id
+        });
+
+        req.rootUser.save();
+        res.status(201).json(req.rootUser);
+        console.log("Item removed");
+
+    } catch (error) {
+        // console.log(error + "jwt provide then remove");
+        res.status(400).json(error);
+    }
+});
+// for userlogout
+
+router.get("/logout", authenicate, async (req, res) => {
+    try {
+        req.rootUser.tokens = req.rootUser.tokens.filter((curelem) => {
+            return curelem.token !== req.token
+        });
+
+        res.clearCookie("ecommerce", { path: "/" });
+        req.rootUser.save();
+        res.status(201).json(req.rootUser.tokens);
+        // console.log("user logout");
+
+    } catch (error) {
+        // console.log(error + "jwt provide then logout");
+    }
+});
+
 module.exports = router;
