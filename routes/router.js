@@ -127,7 +127,7 @@ router.post("/addcart/:id", authenicate, async (req, res) => {
     try {
         // console.log("perfect 6");
         const { id } = req.params;
-        const cart = await products.findOne({ id: id });
+        const cart = await products.findOne({ id: id });                                         
         console.log(cart + "cart milta hain");
 
         const Usercontact = await User.findOne({ _id: req.userID });
@@ -171,7 +171,7 @@ router.get("/validuser", authenicate, async (req, res) => {
         console.log(error + "error for valid user");
     }
 });
-// remove iteam from the cart
+// remove item from the cart
 
 router.delete("/remove/:id", authenicate, async (req, res) => {
     try {

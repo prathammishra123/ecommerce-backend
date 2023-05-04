@@ -18,7 +18,7 @@ const authenicate = async(req,res,next)=>{
         req.rootUser = rootUser;   
         req.userID = rootUser._id;   
         next();  
-      console.log("executed");
+    //   console.log("executed");
     } catch (error) {
         res.status(401).send("Unauthorized:No token provided");
         console.log(error);

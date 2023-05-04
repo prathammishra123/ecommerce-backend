@@ -80,7 +80,7 @@ userSchema.methods.addcartdata = async function(cart){
         await this.save();
         return this.carts;
     } catch (error) {
-        console.log(error + "bhai cart add time aai error");
+        // console.log(error + "Item is not getting added to cart");
     }
 }
 
