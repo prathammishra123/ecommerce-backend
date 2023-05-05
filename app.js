@@ -7,6 +7,7 @@ require("./db/conn");
 const products=require("./models/productsSchema");
 const DefaultData = require("./defaultdata");
 const router = require("./routes/router");
+const adminRouter=require("./admin-routes/admin-router")
 const cookieParser = require("cookie-parser");
 
 
@@ -19,6 +20,7 @@ app.use(cors({
     credentials: true
 }));
 app.use(router);
+app.use('/admin',adminRouter)
 app.listen(port,()=>{
     console.log(`server is running on port number ${port}`);
 });

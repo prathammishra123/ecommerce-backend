@@ -129,7 +129,7 @@ router.post("/addcart/:id", authenicate, async (req, res) => {
         const { id } = req.params;
         const cart = await products.findOne({ id: id });                                         
         console.log(cart + "cart milta hain");
-
+        
         const Usercontact = await User.findOne({ _id: req.userID });
         console.log(Usercontact + "user milta hain");
 
@@ -138,6 +138,9 @@ router.post("/addcart/:id", authenicate, async (req, res) => {
             const cartData = await Usercontact.addcartdata(cart);
 
             await Usercontact.save();
+            // console.log(cart.no_of_times);
+             cart.no_of_times=cart.no_of_times+1;
+             await cart.save();
             // console.log(cartData + " thse save wait kr");
             // console.log(Usercontact + "userjode save");
             res.status(201).json(Usercontact);
@@ -182,6 +185,9 @@ router.delete("/remove/:id", authenicate, async (req, res) => {
         });
 
         req.rootUser.save();
+        cart.no_of_times=cart.no_of_times-1;
+        if(cart.no_of_times<0){cart.no_of_times=0;}
+             await cart.save();
         res.status(201).json(req.rootUser);
         console.log("Item removed");
 
