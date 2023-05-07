@@ -1,6 +1,7 @@
 const express = require("express");
 const router = new express.Router();
 const products = require("../models/productsSchema");
+const users = require("../models/UserSchema");
 const Admin=require("../models/AdminSchema");
 const bcrypt = require("bcryptjs");
 const authenicate=require("../middleware/admin_authenticate");
@@ -103,15 +104,16 @@ router.patch("/update/:id", authenicate, async (req, res)=>
 
 // add product 
 router.post("/addproduct", authenicate, async (req, res)=> 
-{
+{    
+   
     try {
        const {id, url,detailUrl,title,price,description,discount,tagline ,no_of_times}=req.body;
-    //    console.log(user_del);
+    console.log(id, url,detailUrl,title,price,description,discount,tagline ,no_of_times);
        if(!id || !url || !title || !detailUrl || !price || !description || !discount || !tagline || !no_of_times)
        {
         res.status(400).json("Fill the details properly");
+        console.log("Details are not filled properly");
        }
-       no_of_times=0;
        await products.create({id, url,detailUrl,title,price,description,discount,tagline,no_of_times});
         res.status(201).json("Product Added");
        console.log("Product Added");
@@ -190,13 +192,26 @@ router.get("/analysis", authenicate, async (req, res)=>
     let proarr=[];
     for( let it of pro)
     { 
-        const {id,url,no_of_times}=it;
-        proarr.push( {id,url,no_of_times});
+        
+        proarr.push( it);
     }   
     res.status(200).json(proarr);
+    console.log("data senttt");
     } catch (error) {
         console.log(error);
         res.status(400).json(error);
+    }
+});
+// to get all users
+router.get("/getusers",authenicate, async(req,res) => {
+    try {
+        const usersdata = await users.find();
+       
+        console.log("data mila hain");
+        res.status(201).json(usersdata);
+    } catch (error) {
+        console.log("error" + error.message);
+        console.log("data nhai mila");
     }
 });
 

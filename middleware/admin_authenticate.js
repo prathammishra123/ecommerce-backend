@@ -6,7 +6,7 @@ const admin_authenicate = async(req,res,next)=>{
     try {
         console.log("start");
         const token = req.cookies.ecommerceAdmin;
-        console.log(token);
+        console.log( "ADDM PRODUCVGJJGJGGGJGJGJGJGGJGT"+token);
         
         const verifyToken = jwt.verify(token,keysecret);
      
@@ -19,8 +19,8 @@ const admin_authenicate = async(req,res,next)=>{
         req.rootUser = rootUser;   
         req.userID = rootUser._id;   
         next();  
-    //   console.log("executed");
     } catch (error) {
+        console.log("Token is not there");
         res.status(401).send("Unauthorized:No token provided");
         console.log(error);
     }
