@@ -235,6 +235,24 @@ router.get("/getproductsone_mongo/:id",async(req,res)=> {
         console.log("id not found");
     }
 })
+// get individual data of user through mongodbid
+router.get("/getusersone_mongo/:id",async(req,res)=> {
+    // console.log("yes i am there");
+    try{
+        const {id}=req.params;
+        // console.log("hiii"+id);
+        const individualdata= await users.findById(id);
+        // console.log(individualdata);
+        // console.log("hii");
+        res.status(200).json(individualdata);
+    }
+    catch(error)
+    {
+      res.status(400).json(error);
+        console.log("Id not found");
+    }
+})
+
 
 
 
