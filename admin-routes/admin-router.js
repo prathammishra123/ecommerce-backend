@@ -150,12 +150,14 @@ router.delete("/deleteproduct/:id", authenicate, async (req, res) => {
 // update product
 router.patch("/updateproduct/:id", authenicate, async (req, res)=> 
 {
+    // console.log("hiiii123");
     try {
+        // console.log("hiiii1");
         const { id:id1 } = req.params;
        const pro_upd=await products.findById(id1);
-    //    console.log(id1);
-       const { id,url,detailUrl,title,price,description,discount,tagline}=req.body;
-    //    console.log(user_del);
+       console.log(id1);
+       const { id,url,detailUrl,title,price,description,discount,tagline,no_of_times}=req.body;
+       console.log(id,url,detailUrl,title,price,description,discount,tagline,no_of_times);
        if(!pro_upd)
        {
         res.status(400).json("This product does not exist");
@@ -165,11 +167,12 @@ router.patch("/updateproduct/:id", authenicate, async (req, res)=>
        if(id){pro_upd.id=id;}
        if(url){pro_upd.url=url;}
        if(detailUrl){pro_upd.detailUrl= detailUrl;}
-       if(title){pro_upd.title=title;}
-       if(price){pro_upd.price=price;}
+    //    if(title){pro_upd.title=title;}
+    //    if(price){pro_upd.price=price;}
        if(description){pro_upd.description=description;}
        if(discount){pro_upd.discount=discount;}
        if(tagline){pro_upd.tagline=tagline;}
+       pro_upd.no_of_times=no_of_times;
        await pro_upd.save();
        console.log("Product Updated");
         res.status(201).json("Product Updated");
@@ -215,7 +218,23 @@ router.get("/getusers",authenicate, async(req,res) => {
     }
 });
 
-
+// get individual data of product through mongodbid
+router.get("/getproductsone_mongo/:id",async(req,res)=> {
+    console.log("yes i am there");
+    try{
+        const {id}=req.params;
+        console.log("hiii"+id);
+        const individualdata= await products.findById(id);
+        console.log(individualdata);
+        console.log("hii");
+        res.status(200).json(individualdata);
+    }
+    catch(error)
+    {
+      res.status(400).json(error);
+        console.log("id not found");
+    }
+})
 
 
 
