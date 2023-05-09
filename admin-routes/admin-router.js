@@ -108,7 +108,8 @@ router.post("/addproduct", authenicate, async (req, res)=>
    
     try {
        const {id, url,detailUrl,title,price,description,discount,tagline ,no_of_times}=req.body;
-    console.log(id, url,detailUrl,title,price,description,discount,tagline ,no_of_times);
+    //    const titlec=JSON.parse(title);
+    //    const  pricec=JSON.parse(price);
        if(!id || !url || !title || !detailUrl || !price || !description || !discount || !tagline || !no_of_times)
        {
         res.status(400).json("Fill the details properly");
@@ -197,8 +198,20 @@ router.get("/analysis", authenicate, async (req, res)=>
     { 
         
         proarr.push( it);
-    }   
-    res.status(200).json(proarr);
+    }  
+    let x=(proarr[0]);
+    let y=(proarr[0]);
+    let z=0;
+    let arr = proarr.map((item) => {
+      if (item.no_of_times < x.no_of_times) {
+        x=(item);
+      }
+      if (item.no_of_times > y.no_of_times) {
+        y=(item);
+      }
+      z += item.no_of_times;
+    }); 
+    res.status(200).json({proarr,x,y,z});
     console.log("data senttt");
     } catch (error) {
         console.log(error);
