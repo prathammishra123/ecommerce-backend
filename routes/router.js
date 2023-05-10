@@ -178,16 +178,17 @@ router.get("/validuser", authenicate, async (req, res) => {
 
 router.delete("/remove/:id", authenicate, async (req, res) => {
     try {
-        const { id } = req.params;
-
+        const { id } = req.params; 
+        console.log('fdjfd');
+        console.log(req.rootUser);
         req.rootUser.carts = req.rootUser.carts.filter((curel) => {
             return curel.id != id
         });
-
-        req.rootUser.save();
-        cart.no_of_times=cart.no_of_times-1;
-        if(cart.no_of_times<0){cart.no_of_times=0;}
-             await cart.save();
+        const product= await products.findOne({id:id});
+        product.no_of_times=product.no_of_times-1;
+       await  product.save();
+        console.log("hey111");
+              req.rootUser.save();
         res.status(201).json(req.rootUser);
         console.log("Item removed");
 
