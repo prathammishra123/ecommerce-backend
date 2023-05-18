@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cookieParser());
 // app.use(express.cookieParser())
 app.use(cors({
-    origin: 'https://shopgenie-backend.onrender.com',
+    origin: '*',
     credentials: true,
     exposedHeaders: ["set-cookie"] 
 }));
