@@ -104,7 +104,8 @@ console.log(req.body);
                 // console.log('cookie')
                 res.cookie("ecommerce", token, {
                     expires: new Date(Date.now() + 2589000),
-                    httpOnly: true
+                    httpOnly: true,
+                    secure: true,
                 });
                 // res.cookie("Cookie name", "cookie value")
                 // console.log("y1111ese");
