@@ -5,6 +5,7 @@ const keysecret = process.env.KEY
 const authenicate = async(req,res,next)=>{
     try {
         console.log("start");
+        console.log("here is my token-"+req.cookies.ecommerce)
         const token = req.cookies.ecommerce;
         
         const verifyToken = jwt.verify(token,keysecret);
