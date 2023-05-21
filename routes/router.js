@@ -126,7 +126,7 @@ console.log(req.body);
 router.post("/addcart/:id", authenicate, async (req, res) => {
 
     try {
-        // console.log("perfect 6");
+        console.log("perfect 6");
         const { id } = req.params;
         const cart = await products.findOne({ id: id });                                         
         console.log(cart + "cart milta hain");
