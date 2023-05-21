@@ -3,6 +3,7 @@ const User = require("../models/UserSchema");
 const keysecret = process.env.KEY
 
 const authenicate = async(req,res,next)=>{
+    res.header('Access-Control-Allow-Credentials', true)
     try {
         console.log("start");
         console.log("HERE IS THE REQ-");
