@@ -109,7 +109,7 @@ console.log(req.body);
                 });
                 // res.cookie("Cookie name", "cookie value")
                 // console.log("y1111ese");
-                res.status(201).json({"token":token});
+                res.status(201).json(userlogin);
                 // console.log("yese");  
             }
 
