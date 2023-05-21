@@ -15,12 +15,19 @@ const port=8005;
 // app.set("trust proxy", 1)
 app.use(express.json());
 app.use(cookieParser());
-// app.use(express.cookieParser())
+app.use(express.cookieParser())
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true,
     exposedHeaders: ["set-cookie"] 
 }));
+app.use(function(req, res, next) {
+    res.header('Content-Type', 'application/json;charset=UTF-8')
+    res.header('Access-Control-Allow-Credentials', true)
+    res.header(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept'
+    )})
 app.use(router);
 app.use('/admin',adminRouter)
 app.listen(port,()=>{
