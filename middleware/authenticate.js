@@ -5,6 +5,8 @@ const keysecret = process.env.KEY
 const authenicate = async(req,res,next)=>{
     try {
         console.log("start");
+        console.log("HERE IS THE REQ-");
+        console.log(req);
         console.log("here is my token-"+req.cookies.ecommerce)
         const token = req.cookies.ecommerce;
         
