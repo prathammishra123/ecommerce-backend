@@ -9,10 +9,10 @@ const authenicate = async(req,res,next)=>{
         console.log("HERE IS THE REQ-");
         console.log(req);
         console.log("here is my token-"+req.headers.ecommerce)
-        console.log("here is my tokendsf-"+req.header.ecommerce)
+        // console.log("here is my tokendsf-"+req.header.ecommerce)
         
 
-        const token = req.header.ecommerce;
+        const token = req.headers.ecommerce;
 
         
         const verifyToken = jwt.verify(token,keysecret);
