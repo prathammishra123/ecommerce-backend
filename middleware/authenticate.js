@@ -8,8 +8,9 @@ const authenicate = async(req,res,next)=>{
         console.log("start");
         console.log("HERE IS THE REQ-");
         console.log(req);
-        console.log("here is my token-"+req.cookies.ecommerce)
-        const token = JSON.parse(localStorage.getItem("ecommerce"));
+        console.log("here is my token-"+req.ecommerce)
+        const token = req.ecommerce;y
+        
         
         const verifyToken = jwt.verify(token,keysecret);
      
